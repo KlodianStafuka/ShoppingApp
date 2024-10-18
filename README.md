@@ -24,8 +24,8 @@ Welcome to the Flex Business Solutions Shopping App! This application is designe
 
 #### Video Preview:
 
-<video src='assets/preview/rec.mp4' />
----
+https://github.com/user-attachments/assets/a6ae780f-80ea-4ad8-aede-5c13721421b9
+
 
 ## Tech Stack
 
