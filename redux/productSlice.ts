@@ -3,8 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Product {
   id: number;
   title: string;
+  price: number;
   brand: string;
   category: string;
+  image: string;
 }
 
 interface ProductState {
@@ -24,14 +26,20 @@ const productSlice = createSlice({
     setProducts(state, action: PayloadAction<Product[]>) {
       state.products = action.payload;
     },
-    filterProducts(state, action: PayloadAction<string[]>) {
-      const selectedBrands = action.payload;
+    filterProducts(state, action: PayloadAction<{ brand?: string; category?: string }>) {
+      const { brand, category } = action.payload;
       state.filteredProducts = state.products.filter(product => 
-        selectedBrands.includes(product.brand)
+        (!brand || product.brand === brand) && (!category || product.category === category)
+      );
+    },
+    searchProducts(state, action: PayloadAction<string>) {
+      const searchTerm = action.payload.toLowerCase();
+      state.filteredProducts = state.products.filter(product =>
+        product.title.toLowerCase().includes(searchTerm) || product.id.toString() === searchTerm
       );
     },
   },
 });
 
-export const { setProducts, filterProducts } = productSlice.actions;
+export const { setProducts, filterProducts, searchProducts } = productSlice.actions;
 export default productSlice.reducer;
